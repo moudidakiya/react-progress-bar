@@ -43,6 +43,8 @@ pipeline {
           def nexusRepository = 'ExosDataComponents'
           
           sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ${componentsPath} ${nexusUrl}/repository/${nexusRepository}"
+          sh "cd ${componentsPath} && curl -u ${nexusUsername}:${nexusPassword} --upload-file ./* ${nexusUrl}/repository/${nexusRepository}"
+
         }
       }
     }
