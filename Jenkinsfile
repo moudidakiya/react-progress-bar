@@ -31,7 +31,7 @@ pipeline {
     stage('Publish') {
       steps {
         script {
-          def componentsPath = 'build'
+          def componentsPath = 'dist'
           def nexusUrl = 'http://localhost:8081'
           def nexusUsername = 'exosdata'
           def nexusPassword = 'stage'
