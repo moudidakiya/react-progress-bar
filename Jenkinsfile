@@ -16,7 +16,7 @@ pipeline {
       steps {
         sh 'cat package.json' // Display the contents of package.json
         sh 'ls'
-        sh 'cd dist'
+        sh 'cd dist && ls'
         sh 'ls'
         sh 'cd src'
         sh 'ls'
