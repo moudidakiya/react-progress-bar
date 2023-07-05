@@ -48,8 +48,7 @@ pipeline {
           sh "curl -u exosdata:stage --upload-file ./dist/index.js http://192.99.35.61:8081/repository/ExosDataComponents/"
           sh "curl -u exosdata:stage --upload-file ./dist/index.js.map http://192.99.35.61:8081/repository/ExosDataComponents/"
           
-          sh "curl -u exosdata:stage --upload-file ./dist/index.d.ts --upload-file ./dist/index.js --upload-file ./dist/index.js.map http://192.99.35.61:8081/repository/ExosDataComponents/"
-
+          
 
         }
       }
