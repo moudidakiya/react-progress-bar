@@ -12,6 +12,12 @@ pipeline {
         sh 'npm run build'
       }
     }
+    stage('Debug') {
+  steps {
+    // List the contents of the 'build' directory for debugging purposes
+    sh 'ls -la build'
+  }
+  }
     
     stage('Test') {
       steps {
