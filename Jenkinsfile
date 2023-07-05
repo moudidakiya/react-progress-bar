@@ -15,7 +15,10 @@ pipeline {
    stage('Debug') {
       steps {
         sh 'cat package.json' // Display the contents of package.json
+        sh 'ls'
         sh 'cd dist'
+        sh 'ls'
+        sh 'cd src'
         sh 'ls'
         sh 'cd ..'
       }
