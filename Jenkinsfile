@@ -31,7 +31,7 @@ pipeline {
       steps {
         script {
           def componentsPath = 'dist'
-          def nexusUrl = 'http://localhost:8081'
+          def nexusUrl = 'http://192.99.35.61:8081'
           def nexusUsername = 'exosdata'
           def nexusPassword = 'stage'
           def nexusRepository = 'ExosDataComponents'
