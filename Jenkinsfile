@@ -12,12 +12,11 @@ pipeline {
         sh 'npm run build'
       }
     }
-    stage('Debug') {
-  steps {
-    // List the contents of the 'build' directory for debugging purposes
-    sh 'ls -la build'
-  }
-  }
+   stage('Debug') {
+      steps {
+        sh 'cat package.json' // Display the contents of package.json
+      }
+    }
     
     stage('Test') {
       steps {
