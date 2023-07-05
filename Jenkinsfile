@@ -16,7 +16,10 @@ pipeline {
       steps {
         sh 'cat package.json' // Display the contents of package.json
         sh 'ls'
-        sh 'cd dist && ls && cat index.js && cat index.d.ts && cat index.js.map'
+        sh 'cd dist && ls'
+        sh 'ls -l ./dist/index.d.ts'
+        sh 'ls -l ./dist/index.js'
+        sh 'ls -l ./dist/index.js.map'
         sh 'ls'
         sh 'cd src'
         sh 'ls'
