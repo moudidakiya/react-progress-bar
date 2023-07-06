@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'node:latest'
+      image 'dockette/nodejs'
       args '-u root' 
     }
   }
