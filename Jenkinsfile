@@ -58,10 +58,12 @@ pipeline {
           
           
           sh "npm  config set registry ${nexusUrl}/repository/${nexusRepository}"
-          sh "npm  config set //${nexusUrl}/repository/${nexusRepository}/:_authToken \${BASE64_NEXUS_AUTH}"
-          sh "npm publish"
+          
+          
 
           
+          sh "npm login --registry=${nexusUrl}/repository/${nexusRepository} --user=${env.NEXUS_USERNAME} --password=${env.NEXUS_PASSWORD}"
+          sh "npm publish"          
 
         }
       }
