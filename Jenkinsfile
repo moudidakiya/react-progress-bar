@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'npm install --cache /tmp/npm-cache'
+        sh 'npm install'
         sh 'npm run build'
       }
     }
