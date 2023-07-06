@@ -62,7 +62,7 @@ pipeline {
           
 
           
-          sh "npm login --registry=${nexusUrl}/repository/${nexusRepository} --user=${env.NEXUS_USERNAME} --password=${env.NEXUS_PASSWORD}"
+          sh "npm login --registry=${nexusUrl}/repository/${nexusRepository} --user=${nexusPassword} --password=${nexusUsername}"
           sh "npm publish"          
 
         }
