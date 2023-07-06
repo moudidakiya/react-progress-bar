@@ -51,9 +51,10 @@ pipeline {
           sh "curl -u exosdata:stage --upload-file ./dist/index.js http://192.99.35.61:8081/repository/ExosDataComponents/"
           sh "curl -u exosdata:stage --upload-file ./dist/index.js.map http://192.99.35.61:8081/repository/ExosDataComponents/"
 
-          sh "npm config set registry ${nexusUrl}/repository/${nexusRepository}"
-          sh "npm config set //${nexusUrl}/repository/${nexusRepository}/:_authToken \${BASE64_NEXUS_AUTH}"
-          sh "npm publish"
+          sh "npm  --user jenkins config set registry ${nexusUrl}/repository/${nexusRepository}"
+          sh "npm  --user jenkins config set //${nexusUrl}/repository/${nexusRepository}/:_authToken \${BASE64_NEXUS_AUTH}"
+          sh "npm --user jenkins publish"
+
           
 
         }
