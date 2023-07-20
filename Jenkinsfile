@@ -16,6 +16,7 @@ pipeline {
         sh 'npm install'
         sh 'rm -rf dist/*'
         sh 'npm cache clean --force'
+        sh 'rm -rf node_modules/.cache/rollup-plugin-typescript2'
         sh 'npm run build'
       }
     }
