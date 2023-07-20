@@ -54,11 +54,10 @@ pipeline {
           
           sh "npm config set registry http://192.99.35.61:8081/repository/yasmine/"
           sh "curl -u ${nexusUsername}:${nexusPassword} ${nexusUrl2}"
-          withCredentials([usernamePassword(passwordVariable: 'stage', usernameVariable: 'exosdata')]) {
+          withCredentials([usernamePassword(credentialsId:'1cc734da-482d-4875-9df7-8c6977420d47', passwordVariable: 'stage', usernameVariable: 'exosdata')]) {
             // Publish the package to the custom registry
             sh "npm publish"}
-
-          // Publish the package
+          
           sh "npm publish"
 
           // Upload individual files if necessary
