@@ -15,6 +15,7 @@ pipeline {
         sh 'node --version'
         sh 'npm install'
         sh 'rm -rf dist/*'
+        sh 'npm cache clean --force'
         sh 'npm run build'
       }
     }
