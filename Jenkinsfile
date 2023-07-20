@@ -50,15 +50,8 @@ pipeline {
           def nexusPassword = 'stage'
           def nexusRepository = 'ExosDataComponents/'
 
-          sh "npm config set registry ${nexusUrl}/repository/${nexusRepository}"
-          sh "npm config set always-auth true" // Ensure always-auth is set to true
-
-          // Run npm adduser to authenticate
           
-
-          sh "npm install -g npm"
-          sh "npm cache clean --force"
-          sh "npm login --registry=http://192.99.35.61:8081/repository/ExosDataComponents/ --username=exosdata --password=stage"
+          sh "npm login --registry=http://192.99.35.61:8081/repository/yasmine/"
           
           sh "npm adduser --registry=${nexusUrl}/repository/${nexusRepository} --username=${nexusUsername} --password=${nexusPassword}"
 
