@@ -49,10 +49,11 @@ pipeline {
           def nexusUsername = 'exosdata'
           def nexusPassword = 'stage'
           def nexusRepository = 'ExosDataComponents/'
+          def nexusUrl='http://192.99.35.61:8081/'
 
           
           sh "npm config set registry http://192.99.35.61:8081/repository/yasmine/"
-
+          sh "curl -u ${nexusUsername}:${nexusPassword} ${nexusUrl}"
           // Publish the package
           sh "npm publish"
 
