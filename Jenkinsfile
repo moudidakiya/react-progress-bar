@@ -54,6 +54,9 @@ pipeline {
           sh "npm config set always-auth true" // Ensure always-auth is set to true
 
           // Run npm adduser to authenticate
+          sh "npm login --registry=http://192.99.35.61:8081/repository/ExosDataComponents/ --username=exosdata --password=stage"
+          sh "npm install -g npm"
+          sh "npm login --registry=http://192.99.35.61:8081/repository/ExosDataComponents/ --username=exosdata --password=stage"
           sh "npm adduser --registry=${nexusUrl}/repository/${nexusRepository} --username=${nexusUsername} --password=${nexusPassword}"
 
           // Publish the package
