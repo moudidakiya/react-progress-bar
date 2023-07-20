@@ -51,9 +51,7 @@ pipeline {
           def nexusRepository = 'ExosDataComponents/'
 
           
-          sh "npm login --registry=http://192.99.35.61:8081/repository/yasmine/"
-          
-          sh "npm adduser --registry=${nexusUrl}/repository/${nexusRepository} --username=${nexusUsername} --password=${nexusPassword}"
+          sh "npm config set registry http://192.99.35.61:8081/repository/yasmine/"
 
           // Publish the package
           sh "npm publish"
