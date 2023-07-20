@@ -48,7 +48,7 @@ pipeline {
           def nexusUrl = 'http://192.99.35.61:8081'
           def nexusUsername = 'exosdata'
           def nexusPassword = 'stage'
-          def nexusRepository = 'ExosDataComponents'
+          def nexusRepository = 'ExosDataComponents/'
           
           sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ${componentsPath} ${nexusUrl}/repository/${nexusRepository}"
           sh "cd ${componentsPath} && curl -u ${nexusUsername}:${nexusPassword} --upload-file ./* ${nexusUrl}/repository/${nexusRepository}"
