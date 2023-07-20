@@ -1,8 +1,8 @@
 pipeline {
   agent {
     docker {
-      image 'node:18.16'
-      args '-u root' 
+      image 'node:16' // Updated to use Node.js version 16
+      args '-u root'
     }
   }
   environment {
@@ -17,7 +17,7 @@ pipeline {
         sh 'npm run build'
       }
     }
-   stage('Debug') {
+    stage('Debug') {
       steps {
         sh 'cat package.json' // Display the contents of package.json
         sh 'ls'
@@ -31,16 +31,13 @@ pipeline {
         sh 'cd ..'
       }
     }
-    
     stage('Test') {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
           sh 'npm test'
         }
-        
       }
     }
-    
     stage('Publish') {
       steps {
         script {
@@ -49,23 +46,20 @@ pipeline {
           def nexusUsername = 'exosdata'
           def nexusPassword = 'stage'
           def nexusRepository = 'ExosDataComponents/'
-          
-          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ${componentsPath} ${nexusUrl}/repository/${nexusRepository}"
-          sh "cd ${componentsPath} && curl -u ${nexusUsername}:${nexusPassword} --upload-file ./* ${nexusUrl}/repository/${nexusRepository}"
-          sh "curl -u exosdata:stage --upload-file ./dist/index.d.ts http://192.99.35.61:8081/repository/ExosDataComponents/"
-          sh "curl -u exosdata:stage --upload-file ./dist/index.js http://192.99.35.61:8081/repository/ExosDataComponents/"
-          sh "curl -u exosdata:stage --upload-file ./dist/index.js.map http://192.99.35.61:8081/repository/ExosDataComponents/"
 
-          
-          
-          sh "npm  config set registry ${nexusUrl}/repository/${nexusRepository}"
-          
-          
+          sh "npm config set registry ${nexusUrl}/repository/${nexusRepository}"
+          sh "npm config set always-auth true" // Ensure always-auth is set to true
 
-          
-          sh "npm login --registry=${nexusUrl}/repository/${nexusRepository} --user=${nexusUsername} --password=${nexusPassword}"
-          sh "npm publish"          
+          // Run npm adduser to authenticate
+          sh "npm adduser --registry=${nexusUrl}/repository/${nexusRepository} --username=${nexusUsername} --password=${nexusPassword}"
 
+          // Publish the package
+          sh "npm publish"
+
+          // Upload individual files if necessary
+          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./dist/index.d.ts ${nexusUrl}/repository/${nexusRepository}"
+          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./dist/index.js ${nexusUrl}/repository/${nexusRepository}"
+          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./dist/index.js.map ${nexusUrl}/repository/${nexusRepository}"
         }
       }
     }
