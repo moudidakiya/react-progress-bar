@@ -1,4 +1,4 @@
-epipeline {
+pipeline {
   agent {
     docker {
       image 'node:16' // Updated to use Node.js version 16
