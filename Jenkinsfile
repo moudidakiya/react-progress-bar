@@ -1,4 +1,4 @@
-pipeline {
+epipeline {
   agent {
     docker {
       image 'node:16' // Updated to use Node.js version 16
@@ -46,7 +46,7 @@ pipeline {
         script {
           
           def nexusUrl = 'http://192.99.35.61:8081'
-          def nexusRepository = 'yasmine' // Replace with your hosted repository name
+          def nexusRepository = 'ExosDataComponents' // Replace with your hosted repository name
           def nexusUsername = 'exosdata'
           def nexusPassword = 'stage'
           
