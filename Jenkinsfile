@@ -44,26 +44,22 @@ pipeline {
     stage('Publish') {
       steps {
         script {
-          def componentsPath = 'dist'
+          
           def nexusUrl = 'http://192.99.35.61:8081'
+          def nexusRepository = 'yasmine' // Replace with your hosted repository name
           def nexusUsername = 'exosdata'
           def nexusPassword = 'stage'
-          def nexusRepository = 'ExosDataComponents/'
-          def nexusUrl2='http://192.99.35.61:8081/'
-
           
-          sh "npm config set registry http://192.99.35.61:8081/repository/yasmine/"
-          sh "curl -u ${nexusUsername}:${nexusPassword} ${nexusUrl2}"
-          withCredentials([usernamePassword(credentialsId:'1cc734da-482d-4875-9df7-8c6977420d47', passwordVariable: 'stage', usernameVariable: 'exosdata')]) {
-            // Publish the package to the custom registry
-            sh "npm publish"}
+          // Generate an authentication token
+          def authToken = "${nexusUsername}:${nexusPassword}".bytes.encodeBase64().toString()
           
+          // Create an .npmrc file with registry and authToken
+          writeFile file: '.npmrc', text: "registry=${nexusUrl}/repository/${nexusRepository}/\n//${nexusUrl}/repository/${nexusRepository}/:_authToken=${authToken}"
+          
+          // Publish the package to the custom registry
           sh "npm publish"
-
-          // Upload individual files if necessary
-          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./dist/index.d.ts ${nexusUrl}/repository/${nexusRepository}"
-          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./dist/index.js ${nexusUrl}/repository/${nexusRepository}"
-          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./dist/index.js.map ${nexusUrl}/repository/${nexusRepository}"
+        
+          
         }
       }
     }
