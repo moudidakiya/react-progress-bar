@@ -53,9 +53,12 @@ pipeline {
           // Generate an authentication token
           def authToken = "${nexusUsername}:${nexusPassword}".bytes.encodeBase64().toString()
           
-          // Create an .npmrc file with registry and authToken
-          writeFile file: '.npmrc', text: "registry=${nexusUrl}/repository/${nexusRepository}/
-          //${nexusUrl}/repository/${nexusRepository}/:_authToken=${authToken}"
+         
+
+          writeFile file: '/var/lib/jenkins/workspace/first/.npmrc', text: """
+        registry=${nexusUrl}/repository/${nexusRepository}/
+        //${nexusUrl}/repository/${nexusRepository}/:_authToken=${authToken}
+        """
           
           // Publish the package to the custom registry
           sh "npm publish"
