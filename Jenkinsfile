@@ -53,7 +53,18 @@ pipeline {
           // Generate an authentication token
           def authToken = "${nexusUsername}:${nexusPassword}".bytes.encodeBase64().toString()
           
-         
+          def yourName = 'exosdata'
+          def yourEmail = 'elmajoudiyasmine@gmail.com'
+  
+          writeFile file: '/var/lib/jenkins/workspace/first/.npmrc', text: """
+          init.author.name = ${yourName}
+          init.author.email = ${yourEmail}
+          email = ${yourEmail}
+          always-auth = true
+          _auth = ${authToken}
+          registry = ${nexusUrl}/repository/${nexusRepository}/
+          //${nexusUrl}/repository/${nexusRepository}/:_authToken=${authToken}
+"""
 
           writeFile file: '/var/lib/jenkins/workspace/first/.npmrc', text: """
         registry=${nexusUrl}/repository/${nexusRepository}/
