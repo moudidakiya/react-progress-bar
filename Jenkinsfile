@@ -66,10 +66,7 @@ pipeline {
           //${nexusUrl}/repository/${nexusRepository}/:_authToken=${authToken}
 """
 
-          writeFile file: '/var/lib/jenkins/workspace/first/.npmrc', text: """
-        registry=${nexusUrl}/repository/${nexusRepository}/
-        //${nexusUrl}/repository/${nexusRepository}/:_authToken=${authToken}
-        """
+          
           sh "cat /var/lib/jenkins/workspace/first/.npmrc"
           // Publish the package to the custom registry
           sh "npm publish"
