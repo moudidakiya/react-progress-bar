@@ -60,7 +60,7 @@ pipeline {
             steps {
               withSonarQubeEnv('SonarQube') {
                 script {
-                    def scannerHome = tool 'SonarQube'
+                    def scannerHome = '$(pwd)/sonar-scanner-4.6.2.2472-linux'
                     withCredentials([usernamePassword(credentialsId: 'sonarqube-credentials', usernameVariable: 'sonarUsername', passwordVariable: 'sonarPassword')]) {
                     sh "${scannerHome}/bin/sonar-scanner " +
                     "-Dsonar.host.url=http://192.99.35.61:9000 " +
