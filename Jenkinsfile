@@ -55,7 +55,7 @@ pipeline {
                     "-Dsonar.login=$sonarUsername " +
                     "-Dsonar.password=$sonarPassword"
             
-                  
+                    }
                 }
               }
             }
