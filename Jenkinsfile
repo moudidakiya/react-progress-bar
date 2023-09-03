@@ -43,10 +43,12 @@ pipeline {
     }
     stage('SonarQube Analysis') {
             steps {
+              withSonarQubeEnv('SonarQube') {
                 script {
                     def scannerHome = tool 'SonarQube'
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
+              }
             }
         }
     stage('Publish') {
